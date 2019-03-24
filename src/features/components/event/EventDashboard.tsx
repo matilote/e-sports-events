@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Grid, Button } from "semantic-ui-react";
 import EventList from "./EventList";
 import EventForm from "./forms/EventForm";
 import { eventDashboard } from "../navigation/eventData";
+import { Grid, Button } from 'semantic-ui-react';
 
 interface IEventsState {
   events: any;
