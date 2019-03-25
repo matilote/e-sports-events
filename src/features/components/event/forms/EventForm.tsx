@@ -3,7 +3,8 @@ import { Segment, Form, Button } from "semantic-ui-react";
 import { render } from "react-dom";
 
 interface IEventFormProps {
-  handleFormOpen(): void;
+  handleFormOpen(): void,
+  createEvent(newEvent: any): void
 }
 
 class EventForm extends Component<IEventFormProps, {}> {
@@ -28,19 +29,19 @@ class EventForm extends Component<IEventFormProps, {}> {
           </Form.Field>
           <Form.Field>
             <label>Event Date</label>
-            <input type="date" placeholder="Event Date" />
+            <input name='date' onChange={this.onInputChange} value={event.date} type="date" placeholder="Event Date" />
           </Form.Field>
           <Form.Field>
             <label>City</label>
-            <input placeholder="City event is taking place" />
+            <input name='city' onChange={this.onInputChange} value={event.city} placeholder="City event is taking place" />
           </Form.Field>
           <Form.Field>
             <label>Venue</label>
-            <input placeholder="Enter the Venue of the event" />
+            <input name='venue' onChange={this.onInputChange} value={event.venue} placeholder="Enter the Venue of the event" />
           </Form.Field>
           <Form.Field>
             <label>Hosted By</label>
-            <input placeholder="Enter the name of person hosting" />
+            <input name='hostedBy' onChange={this.onInputChange} value={event.hostedBy} placeholder="Enter the name of person hosting" />
           </Form.Field>
           <Button positive type="submit">
             Submit
@@ -55,7 +56,7 @@ class EventForm extends Component<IEventFormProps, {}> {
 
   private onFormSubmit = (e: any): void => {
     e.preventDefault()
-    console.log(this.state.event)
+    this.props.createEvent(this.state.event)
   };
 
   private onInputChange = (e: any): void => {

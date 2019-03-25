@@ -3,7 +3,7 @@ import EventList from "./EventList";
 import EventForm from "./forms/EventForm";
 import { eventDashboard } from "../navigation/eventData";
 import { Grid, Button } from 'semantic-ui-react';
-
+import cuid from 'cuid';
 interface IEventsState {
   events: any;
   isOpen: boolean;
@@ -18,7 +18,7 @@ class EventDashboard extends Component<{}, IEventsState> {
     };
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <Grid>
         <Grid.Column width={8}>
@@ -30,7 +30,7 @@ class EventDashboard extends Component<{}, IEventsState> {
             positive
             content="Create Event"
           />
-          {this.state.isOpen && <EventForm handleFormOpen={this.handleFormOpen}/>}
+          {this.state.isOpen && <EventForm createEvent={this.handleCreateEvent} handleFormOpen={this.handleFormOpen}/>}
         </Grid.Column>
         <Grid.Column width={4}>
           <h2>Right Colum</h2>
@@ -44,6 +44,16 @@ class EventDashboard extends Component<{}, IEventsState> {
       isOpen: !this.state.isOpen
     });
   };
+
+  private handleCreateEvent = (newEvent: any): void => {
+    newEvent.id = cuid()
+    newEvent.hostPhotoURL = '/assets/user.png'
+    const updatedEvents = [...this.state.events, newEvent]
+    this.setState({
+      events: updatedEvents,
+      isOpen: false
+    })
+  }
 }
 
 export default EventDashboard;

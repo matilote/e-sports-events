@@ -32,7 +32,7 @@ const EventListItem = (props: IEvent) => {
       </Segment>
       <Segment secondary>
         <List horizontal>
-          {events.attendees.map((attendee: any) => (
+          {events.attendees && events.attendees.map((attendee: any) => (
             <EventListAttendees key={attendee.id} attendee={attendee} />
           ))}
         </List>
