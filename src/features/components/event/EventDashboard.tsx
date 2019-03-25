@@ -8,7 +8,6 @@ interface IEventsState {
   events: any;
   isOpen: boolean;
 }
-
 class EventDashboard extends Component<{}, IEventsState> {
   constructor(props: any) {
     super(props);

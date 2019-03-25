@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EventListItem from "./EventListItem";
 
-export interface EventProps {
+export interface IEventProps {
   events: {
     id: string;
     title: string;
@@ -20,16 +20,16 @@ export interface EventProps {
   }[];
 }
 
-export default class EventList extends Component<EventProps, {}> {
-  render() {
-    const { events } = this.props;
-    return (
-      <div>
-        <h1>Event List</h1>
-        {events.map((event: any) => (
-          <EventListItem key={event.id} events={event} />
-        ))}
-      </div>
-    );
-  }
-}
+const EventList = (props: IEventProps) => {
+  const { events } = props;
+  return (
+    <div>
+      <h1>Event List</h1>
+      {events.map((event: any) => (
+        <EventListItem key={event.id} events={event} />
+      ))}
+    </div>
+  );
+};
+
+export default EventList;

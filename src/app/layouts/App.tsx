@@ -3,9 +3,8 @@ import "./App.css";
 import EventDashboard from "../../features/components/event/EventDashboard";
 import NavBar from "../../features/components/navigation/NavBar";
 import { Container } from "semantic-ui-react";
-class App extends Component {
-
-  render() {
+class App extends Component<{}, {}> {
+  render(): JSX.Element {
     return (
       <div>
         <NavBar />
