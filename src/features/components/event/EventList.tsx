@@ -16,17 +16,18 @@ export interface IEventProps {
       id: string;
       name: string;
       photoURL: string;
-    }[];
-  }[];
+    }[]
+  }[],
+  onEventEdit: any
 }
 
 const EventList = (props: IEventProps) => {
-  const { events } = props;
+  const { events, onEventEdit } = props;
   return (
     <div>
       <h1>Event List</h1>
       {events.map((event: any) => (
-        <EventListItem key={event.id} events={event} />
+        <EventListItem key={event.id} events={event} onEventEdit={onEventEdit} />
       ))}
     </div>
   );

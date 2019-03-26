@@ -5,10 +5,11 @@ import EventListAttendees from "./EventListAttendees";
 interface IEvent {
   key: string;
   events: any;
+  onEventEdit: any
 }
 
-const EventListItem = (props: IEvent) => {
-  const { events } = props;
+const EventListItem = (props: IEvent): JSX.Element => {
+  const { events, onEventEdit } = props;
   return (
     <Segment.Group>
       <Segment>
@@ -39,7 +40,7 @@ const EventListItem = (props: IEvent) => {
       </Segment>
       <Segment clearing>
         <span>{events.description}</span>
-        <Button as="a" color="teal" floated="right" content="View" />
+        <Button onClick={onEventEdit(events)} as="a" color="teal" floated="right" content="View" />
       </Segment>
     </Segment.Group>
   );

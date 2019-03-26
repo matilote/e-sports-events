@@ -7,22 +7,25 @@ import cuid from 'cuid';
 interface IEventsState {
   events: any;
   isOpen: boolean;
+  selectedEvent: any
 }
 class EventDashboard extends Component<{}, IEventsState> {
+
   constructor(props: any) {
     super(props);
-
     this.state = {
       events: eventDashboard,
-      isOpen: false
+      isOpen: false,
+      selectedEvent: null
     };
   }
 
   render(): JSX.Element {
+    const {selectedEvent} = this.state;
     return (
       <Grid>
         <Grid.Column width={8}>
-          <EventList events={this.state.events} />
+          <EventList onEventEdit={this.handleEditEvent} events={this.state.events} />
         </Grid.Column>
         <Grid.Column width={4}>
           <Button
@@ -30,7 +33,7 @@ class EventDashboard extends Component<{}, IEventsState> {
             positive
             content="Create Event"
           />
-          {this.state.isOpen && <EventForm createEvent={this.handleCreateEvent} handleFormOpen={this.handleFormOpen}/>}
+          {this.state.isOpen && <EventForm selectedEvent={selectedEvent} createEvent={this.handleCreateEvent} handleFormOpen={this.handleFormOpen}/>}
         </Grid.Column>
         <Grid.Column width={4}>
           <h2>Right Colum</h2>
@@ -41,6 +44,7 @@ class EventDashboard extends Component<{}, IEventsState> {
 
   private handleFormOpen = (): void => {
     this.setState({
+      selectedEvent: null,
       isOpen: !this.state.isOpen
     });
   };
@@ -52,6 +56,13 @@ class EventDashboard extends Component<{}, IEventsState> {
     this.setState({
       events: updatedEvents,
       isOpen: false
+    })
+  }
+
+  private handleEditEvent = (eventToUpdate: any) => (): void => {
+    this.setState({
+      selectedEvent: eventToUpdate,
+      isOpen: true
     })
   }
 }
