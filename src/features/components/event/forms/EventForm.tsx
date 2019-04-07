@@ -6,10 +6,12 @@ interface IEventFormProps {
   handleFormOpen(): void;
   createEvent(newEvent: any): void;
   selectedEvent: any;
+  updateEvent(updatedEvent: any): void;
 }
 
 interface IEventFormState {
   event: {
+    id: string,
     title: string;
     date: string;
     city: string;
@@ -19,6 +21,7 @@ interface IEventFormState {
 }
 
 const emptyEvent = {
+  id: '',
   title: '',
   date: '',
   city: '',
@@ -114,7 +117,11 @@ class EventForm extends Component<IEventFormProps, IEventFormState> {
 
   private onFormSubmit = (e: any): void => {
     e.preventDefault();
-    this.props.createEvent(this.state.event);
+    if (this.state.event.id) {
+      this.props.updateEvent(this.state.event)
+    } else {
+      this.props.createEvent(this.state.event);
+    }
   };
 
   private onInputChange = (e: any): void => {

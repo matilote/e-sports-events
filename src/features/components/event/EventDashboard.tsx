@@ -25,7 +25,7 @@ class EventDashboard extends Component<{}, IEventsState> {
     return (
       <Grid>
         <Grid.Column width={8}>
-          <EventList onEventEdit={this.handleEditEvent} events={this.state.events} />
+          <EventList deleteEvent={this.handleDeleteEvent} onEventOpen={this.handleOpenEvent} events={this.state.events} />
         </Grid.Column>
         <Grid.Column width={4}>
           <Button
@@ -33,7 +33,7 @@ class EventDashboard extends Component<{}, IEventsState> {
             positive
             content="Create Event"
           />
-          {this.state.isOpen && <EventForm selectedEvent={selectedEvent} createEvent={this.handleCreateEvent} handleFormOpen={this.handleFormOpen}/>}
+          {this.state.isOpen && <EventForm updateEvent={this.handleUpdateEvent} selectedEvent={selectedEvent} createEvent={this.handleCreateEvent} handleFormOpen={this.handleFormOpen}/>}
         </Grid.Column>
         <Grid.Column width={4}>
           <h2>Right Colum</h2>
@@ -59,10 +59,31 @@ class EventDashboard extends Component<{}, IEventsState> {
     })
   }
 
-  private handleEditEvent = (eventToUpdate: any) => (): void => {
+  private handleUpdateEvent = (updatedEvent: any): void => {
     this.setState({
-      selectedEvent: eventToUpdate,
+      events: this.state.events.map((event: any) => {
+        if(event.id === updatedEvent.id) {
+          return Object.assign({}, updatedEvent);
+        } else {
+          return event
+        }
+      }),
+      isOpen: false,
+      selectedEvent: null
+    })
+  }
+
+  private handleOpenEvent = (eventToOpen: any) => (): void => {
+    this.setState({
+      selectedEvent: eventToOpen,
       isOpen: true
+    })
+  }
+
+  private handleDeleteEvent = (eventId: string) => () => {
+    const updatedEvents = this.state.events.filter((event: any) => event.id !== eventId);
+    this.setState({
+      events: updatedEvents
     })
   }
 }

@@ -5,11 +5,12 @@ import EventListAttendees from "./EventListAttendees";
 interface IEvent {
   key: string;
   events: any;
-  onEventEdit: any
+  onEventOpen: any;
+  deleteEvent: any;
 }
 
 const EventListItem = (props: IEvent): JSX.Element => {
-  const { events, onEventEdit } = props;
+  const { events, onEventOpen, deleteEvent } = props;
   return (
     <Segment.Group>
       <Segment>
@@ -33,14 +34,28 @@ const EventListItem = (props: IEvent): JSX.Element => {
       </Segment>
       <Segment secondary>
         <List horizontal>
-          {events.attendees && events.attendees.map((attendee: any) => (
-            <EventListAttendees key={attendee.id} attendee={attendee} />
-          ))}
+          {events.attendees &&
+            events.attendees.map((attendee: any) => (
+              <EventListAttendees key={attendee.id} attendee={attendee} />
+            ))}
         </List>
       </Segment>
       <Segment clearing>
         <span>{events.description}</span>
-        <Button onClick={onEventEdit(events)} as="a" color="teal" floated="right" content="View" />
+        <Button
+          onClick={onEventOpen(events)}
+          as="a"
+          color="teal"
+          floated="right"
+          content="View"
+        />
+         <Button
+          onClick={deleteEvent(events.id)}
+          as="a"
+          color="red"
+          floated="right"
+          content="Delete"
+        />
       </Segment>
     </Segment.Group>
   );
